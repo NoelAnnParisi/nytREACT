@@ -1,0 +1,41 @@
+{
+  "name": "nytREACT",
+  "version": "1.0.0",
+  "main": "public/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack && node server",
+    "start": "node server",
+    "build": "webpack"
+  },
+  "repository": "https://github.com/NoelAnnParisi/nytREACT.git",
+  "author": "Noel Parisi <ycleptnoel@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "antd": "^2.11.0",
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "es6-promisify": "^5.0.0",
+    "express": "^4.15.3",
+    "glamor": "^2.20.25",
+    "mongoose": "^4.10.5",
+    "path": "^0.12.7",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-import": "^1.2.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "json-loader": "^0.5.4",
+    "less-loader": "^4.0.4",
+    "postcss-loader": "^2.0.5",
+    "style-loader": "^0.18.2",
+    "webpack": "^2.6.1"
+  }
+}
