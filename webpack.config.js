@@ -1,5 +1,3 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-
 module.exports = {
 
     // This is the entry point or start of our react applicaton
@@ -21,13 +19,7 @@ module.exports = {
             use: {
                 loader: 'babel-loader',
                 options: {
-                    presets: ["react", "es2015"],
-                    plugins: [
-                        ["import", {
-                            "libraryName": "antd",
-                            "style": "css"
-                        }]
-                    ]
+                    presets: ["react", "es2015"]
                 }
             }
 

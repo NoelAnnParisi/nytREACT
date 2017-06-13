@@ -1,57 +1,40 @@
 import React from 'react';
-import { Form, Input, Button, Radio } from 'antd';
-const FormItem = Form.Item;
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import axios from 'axios';
 
 export default class Search extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      formLayout: 'horizontal'
-    };
-  }
-  handleFormLayoutChange(e){
-    this.setState({ formLayout: e.target.value });
-  }
+
+	handleSubmitClick(e){ 
+		e.preventDefault(); 
+		let formValues = this.props.value
+		let params = Object.assign(formValues, {'api-key': "1a4eb9efe5cb45c3b875a4fcef1683ca"}) 
+		params.begin_date = `${params.begin_date}0101`; 
+		params.end_date = `${params.end_date}1231`; 
+		axios({ method:'get', baseURL: `https://api.nytimes.com/svc/search/v2/articlesearch.json?`, 
+			params: params, 
+			responseType: 'json', })
+		.then(data => { 
+			console.log(`data: ${JSON.stringify(data, null, 2)}`); 
+		}); 
+	}
   render() {
-    const { formLayout } = this.state;
-    const formItemLayout = formLayout === 'horizontal' ? {
-      labelCol: { span: 4 },
-      wrapperCol: { span: 14 },
-    } : null;
-    const buttonItemLayout = formLayout === 'horizontal' ? {
-      wrapperCol: { span: 14, offset: 4 },
-    } : null;
     return (
-      <div>
-        <Form layout={formLayout}>
-          <FormItem
-            label="Form Layout"
-            {...formItemLayout}
-          >
-          </FormItem>
-          <FormItem
-            label="Field A"
-            {...formItemLayout}
-          >
-            <Input placeholder="input placeholder" />
-          </FormItem>
-          <FormItem
-            label="Field B"
-            {...formItemLayout}
-          >
-            <Input placeholder="input placeholder" />
-          </FormItem>
-          <FormItem
-            label="Field C"
-            {...formItemLayout}
-          >
-          <Input placeholder="input placeholder" />
-          </FormItem>
-          <FormItem {...buttonItemLayout}>
-          <Button type="primary" size="large">Submit</Button>
-          </FormItem>
-        </Form>
-      </div>
+      <Form onSubmit={this.handleSubmitClick}>
+        <FormGroup>
+          <Label for="exampleEmail">Topic</Label>
+          <Input type="text" name="q" id="query" placeholder="with a placeholder" />
+        </FormGroup>
+        <FormGroup>
+          <Label for="examplePassword">Start Year</Label>
+          <Input type="text" name="begin_date" id="startYear" placeholder="password placeholder" />
+        </FormGroup>
+        <FormGroup>
+          <Label for="examplePassword">End year</Label>
+          <Input type="text" name="end_date" id="endYear" placeholder="password placeholder" />
+        </FormGroup>
+        <Button>Submit</Button>
+      </Form>
     );
   }
 }
+

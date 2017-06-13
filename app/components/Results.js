@@ -1,21 +1,24 @@
 import React from 'react';
-import { Table } from 'antd';
-
-const columns = [
-    { title: 'Results', dataIndex: 'article', key: 'name' }, 
-    { title: 'Action', dataIndex: '', key: 'x', render: () => <a href="#">Save</a> }
-];
-
-const data = [
-    { key: 1, article: 'Trump gets impeached', description: 'The day we have all been waiting for!' }
-];
+import { Table } from 'reactstrap';
 
 export default class Results extends React.Component {
-    render() {
-        return ( 
-          <Table columns = { columns }
-            expandedRowRender = {record => <p> { record.description } </p>}
-            dataSource = { data } />
-            );
-    }
+  render() {
+    return (
+      <Table hover>
+        <thead>
+          <tr>
+            <th>Article</th>
+            <th>Save?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Article Title</td>
+            <td>BUTTON HERE</td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+  }
+  
 }
