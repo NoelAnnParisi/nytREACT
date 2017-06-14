@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 
 export default class SavedArticles extends React.Component {
   render() {
@@ -14,7 +14,7 @@ export default class SavedArticles extends React.Component {
         <tbody>
           <tr>
             <td>Article Title</td>
-            <td>BUTTON HERE</td>
+            <td><Button color="danger">Delete</Button></td>
           </tr>
         </tbody>
       </Table>

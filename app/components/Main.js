@@ -1,9 +1,11 @@
 import React from 'react';
 import Header from './Header';
 import Search from './Search';
+import Results from './Results';
 import SavedArticles from './SavedArticles';
 import axios from 'axios';
 
+const dataToBeRendered = [];
 const bodyStyle = {
 	padding: "2%"
 }
@@ -13,19 +15,14 @@ export default class Main extends React.Component {
 		this.state = {
 			q: '',
 			begin_date:'',
-			end_date:''
+			end_date:'',
+			articles: dataToBeRendered
 		}
 		this.handleTopic = this.handleTopic.bind(this);
 		this.handleStartYear = this.handleStartYear.bind(this);
 		this.handleEndYear = this.handleEndYear.bind(this);
 		this.getData = this.getData.bind(this);
 	}
-	// refactor with this
-	// handleInput(e, arg) {
-	// 	if (arg === "startYear") {
-	// 		//do something
-	// 	}
-	// }
 	handleTopic(e){
 		this.setState({
 			q: e.target.value
@@ -43,8 +40,7 @@ export default class Main extends React.Component {
 	}
 	// put in ajaxCalls.js make a utils folder
     getData(e){ 
-		e.preventDefault(); 
-		console.log(formValues, "something in there is wrong")
+		e.preventDefault();
 		let formValues = this.state;
 		let params = Object.assign(formValues, {'api-key': "1a4eb9efe5cb45c3b875a4fcef1683ca"}) 
 		params.begin_date = `${params.begin_date}0101`; 
@@ -55,9 +51,24 @@ export default class Main extends React.Component {
 			params: params, 
 			responseType: 'json', })
 		.then(data => { 
-			console.log(`data: ${JSON.stringify(data, null, 2)}`); 
+			const dataArr = data.data.response.docs;
+			dataArr.forEach(article => {
+				dataToBeRendered.push({
+					web_url: article.web_url,
+					snippet: article.snippet,
+					pub_date: article.pub_date
+				});
+			});
+			this.setState({
+				articles: dataToBeRendered,
+				q:" ",
+				begin_date: " ",
+				end_date: " "
+			});
+
 		}); 
 	}
+
     render() {
 	    return (
 	    	<div style={bodyStyle} >
@@ -71,8 +82,11 @@ export default class Main extends React.Component {
 	    			begin={this.state.begin_date}
 	    			end={this.state.end_date}
 	    		 />
+	    		 <Results 
+	    		 	data={this.state.articles}
+	    		 />
 	    		<SavedArticles />
 	    	</div>
-	      )
-  }
+	    )
+    }
 }
