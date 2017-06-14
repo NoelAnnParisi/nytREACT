@@ -4,7 +4,7 @@ import { Button, Table } from 'reactstrap';
 export default class Results extends React.Component {
   render() {
     return (
-       <Table data={this.props.data} hover>
+      <Table hover>
         <thead>
           <tr>
             <th>Article</th>
@@ -12,10 +12,20 @@ export default class Results extends React.Component {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Article</td>
-            <td>{this.data}</td>
-          </tr>
+          {this.props.articles.map((article) => {
+            return (
+              <tr key={article.pub_date}>
+                <td>
+                  <a href={article.web_url}>
+                    {article.snippet}
+                  </a>
+                </td>
+                <td>
+                  <Button color="success">Save</Button>
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </Table>
     )

@@ -83,7 +83,7 @@ export default class Main extends React.Component {
 	    			end={this.state.end_date}
 	    		 />
 	    		 <Results 
-	    		 	data={this.state.articles}
+	    		 	articles={this.state.articles}
 	    		 />
 	    		<SavedArticles />
 	    	</div>
