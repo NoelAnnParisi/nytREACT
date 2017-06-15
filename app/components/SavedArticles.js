@@ -3,14 +3,6 @@ import { Table, Button } from 'reactstrap';
 import axios from 'axios';
 
 export default class SavedArticles extends React.Component { 
-	// componentWillMount(){
-	//  	 	axios({
-	// 		method:'get',
-	// 		baseURL:'/api',
-	// 	}).then(data => {
-	// 		console.log(`${JSON.stringify(data)}`);
-	// 	})
-	//  }
 	render() {
 		return (
 		  <Table hover>

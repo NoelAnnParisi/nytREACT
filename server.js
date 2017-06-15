@@ -1,7 +1,8 @@
 const path = require('path');
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
-const express = require('express')
+const express = require('express');
+const PORT = process.env.PORT || 8080;
 const app = express();
 const apiRouter = require('./server/article.routes');
 
@@ -16,7 +17,7 @@ app.get('/', (req, res) => {
 
 app.use('/api', apiRouter);
 
-app.listen(8080, (err)=> {
+app.listen(PORT, (err)=> {
 	if (!err){
 		console.log(`YAHS QWEEN!`);
 	}
