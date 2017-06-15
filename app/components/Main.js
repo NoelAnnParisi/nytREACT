@@ -111,7 +111,6 @@ export default class Main extends React.Component {
       method:'get',
       baseURL: `/api/delete/${id}`,
     }).then(response => {
-      console.log(`response.data: ${JSON.stringify(response, null, 2)}`);
       this.setState({
         savedData: this.state.savedData.filter(article => {
           return article._id !== response.data._id
@@ -135,8 +134,7 @@ export default class Main extends React.Component {
                 ref={article._id}
                 color="danger"
                 onClick={() => {
-                  this.deleteArticle(article._id)
-                }}>
+                  this.deleteArticle(article._id)}}>
                 Delete
               </Button>
             </td>
@@ -155,55 +153,48 @@ export default class Main extends React.Component {
               render={() =>
                 <div> 
                   <Search
-                      onSearch={this.getData}
-                      topicChanged={this.handleTopic}
-                      startYearChanged={this.handleStartYear}
-                      endYearChanged={this.handleEndYear}
-                      q={this.state.q}
-                      begin={this.state.begin_date}
-                      end={this.state.end_date}
-                  />
+                    onSearch={this.getData}
+                    topicChanged={this.handleTopic}
+                    startYearChanged={this.handleStartYear}
+                    endYearChanged={this.handleEndYear}
+                    q={this.state.q}
+                    begin={this.state.begin_date}
+                    end={this.state.end_date}/>
                   <Results 
-                      articles={this.state.articles}
-                      saveArticle ={this.saveArticle}
-                   />
+                    articles={this.state.articles}
+                    saveArticle ={this.saveArticle}/>
                 </div>
-              }
-          />
+              }/>
           <Route path='/search' 
               exact={true} 
               render={() => 
-                  <div>
-                    <Search
-                        onSearch={this.getData}
-                        topicChanged={this.handleTopic}
-                        startYearChanged={this.handleStartYear}
-                        endYearChanged={this.handleEndYear}
-                        q={this.state.q}
-                        begin={this.state.begin_date}
-                        end={this.state.end_date}
-                    />
-                    <Results 
-                        articles={this.state.articles}
-                        saveArticle ={this.saveArticle}
-                     />
-                  </div>  
-              }
-          />
+                <div>
+                  <Search
+                    onSearch={this.getData}
+                    topicChanged={this.handleTopic}
+                    startYearChanged={this.handleStartYear}
+                    endYearChanged={this.handleEndYear}
+                    q={this.state.q}
+                    begin={this.state.begin_date}
+                    end={this.state.end_date}/>
+                  <Results 
+                    articles={this.state.articles}
+                    saveArticle ={this.saveArticle}/>
+                </div>  
+              }/>
           <Route path='/saved'
-              exact={true}
-              render={() => 
-                <SavedArticles 
-                  savedData={this.state.savedData}
-                  update={this.update}
-                  deleteArticle={this.deleteArticle}/>
-              }
-          />
+            exact={true}
+            render={() => 
+              <SavedArticles 
+                savedData={this.state.savedData}
+                update={this.update}
+                deleteArticle={this.deleteArticle}/>
+            }/>
         </div>
       </Router>
     )
   }
 }
 
-//this.deleteArticle(this.props.id);
-//console.log(`${this.props.id}`)
+//import Error404 from './Error404';
+//<Route path='*' component={Error404} />

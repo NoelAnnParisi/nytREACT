@@ -23,7 +23,7 @@ export default class Results extends React.Component {
                 <td>
                   <Button color="success" 
                     onClick={
-                      ()=> {
+                      () => {
                         const dataObj = {
                           snippet: article.snippet,
                           pub_date: article.pub_date,
@@ -32,8 +32,7 @@ export default class Results extends React.Component {
                       this.props.saveArticle(dataObj);
                       this.props.getArticleSetState;
                       }
-                    }
-                  >Save</Button>
+                    }>Save</Button>
                 </td>
               </tr>
             )
