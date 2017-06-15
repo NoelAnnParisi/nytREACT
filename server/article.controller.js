@@ -13,7 +13,7 @@ exports.get = async (req, res) => {
 
 exports.post = async (req, res) => {
   console.log(req.body)
-  Article.create(req.body, (err, data) => {
+  Article.create(req.body.data, (err, data) => {
     if (err) {
       console.log(`${err}`);
       res.status(500).json(err);

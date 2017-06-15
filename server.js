@@ -5,7 +5,7 @@ const express = require('express')
 const app = express();
 const apiRouter = require('./server/article.routes');
 
-mongoose.connect('mongodb://localhost:/scraping');
+mongoose.connect('mongodb://localhost:/nytreact');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());

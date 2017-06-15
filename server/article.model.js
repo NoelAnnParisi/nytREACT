@@ -12,7 +12,7 @@ const ArticleSchema = new Schema({
     },
     web_url: {
         type: String,
-        // required: true
+        required: true
     }
 });
 
