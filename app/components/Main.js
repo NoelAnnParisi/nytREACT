@@ -17,15 +17,30 @@ export default class Main extends React.Component {
 			q: '',
 			begin_date:'',
 			end_date:'',
-			articles: []
+			articles: [],
+			savedData: [],
 		}
 		this.handleTopic = this.handleTopic.bind(this);
 		this.handleStartYear = this.handleStartYear.bind(this);
 		this.handleEndYear = this.handleEndYear.bind(this);
 		this.getData = this.getData.bind(this);
 		this.saveArticle = this.saveArticle.bind(this);
-		this.getSavedArticles = this.getSavedArticles.bind(this);
+		this.update = this.update.bind(this);
 	}
+
+	componentWillMount(){
+		axios({
+			method:'get',
+			baseURL:'/api',
+		}).then(response => {
+			const savedDataArr = [];
+			savedDataArr.push(response.data);
+			this.setState({
+				savedData: savedDataArr
+			})
+		})
+	}
+
 	handleTopic(e){
 		this.setState({
 			q: e.target.value
@@ -44,8 +59,12 @@ export default class Main extends React.Component {
 	
     getData(e){ 
 		e.preventDefault();
-		let formValues = this.state;
-		let params = Object.assign(formValues, {'api-key': "1a4eb9efe5cb45c3b875a4fcef1683ca"}) 
+		let formValues = {
+			q: this.state.q,
+			begin_date: this.state.begin_date,
+			end_date: this.state.end_date
+		}
+		let params = Object.assign(formValues, {'api-key': "8d32a9732f3f4185838455317f461bd3"}) 
 		params.begin_date = `${params.begin_date}0101`; 
 		params.end_date = `${params.end_date}1231`; 
 		axios({ 
@@ -80,20 +99,33 @@ export default class Main extends React.Component {
 			data: {
 				data: article
 			}
+		}).then(response => {
+			this.setState({
+				savedData: [].push(response.data).concat(this.state.savedData)
+			})
 		})
 	}
 
-	getSavedArticles(){
-		axios({
-			method:'get',
-			baseURL:'/api',
-		}).then(data => {
-			const savedData = [];
-			savedData.push(data);
-			return savedData;
+	update(data){
+		console.log(this.state.savedData)
+		console.log(`I am being called!`);
+		console.log(data[0]);
+		return data.map(article => {
+		 	return (
+		 		<tr key={article._id}>
+		 			<td>
+			 			<a target="_blank" href={article.web_url}>
+			 				{article.snippet}
+			 			</a>
+		 			</td>
+		 			<td>
+		 				<Button color="danger">Delete</Button>
+		 			</td>
+		 		</tr>
+			)
 		})
 	}
-	
+
     render() {
 	    return (
 	    	<Router>
@@ -136,15 +168,16 @@ export default class Main extends React.Component {
 					    		 	articles={this.state.articles}
 					    		 	saveArticle ={this.saveArticle}
 					    		 />
-					    	</div>
-		    			 
-		    				
-		    		}
+					    	</div>	
+		    			}
 		    		/>
 		    		<Route path='/saved'
 		    			exact={true}
-		    			component={SavedArticles}
-		    			getSavedArticles={this.getSavedArticles}
+		    			render={() => 
+		    				<SavedArticles 
+		    				savedData={this.state.savedData[0]}
+		    				update={this.update}/>
+		    			}
 		    		/>
 		    	</div>
 	    	</Router>

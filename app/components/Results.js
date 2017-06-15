@@ -30,6 +30,7 @@ export default class Results extends React.Component {
                           web_url: article.web_url
                         }
                       this.props.saveArticle(dataObj);
+                      this.props.getArticleSetState;
                       }
                     }
                   >Save</Button>
