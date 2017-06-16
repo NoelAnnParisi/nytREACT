@@ -5,26 +5,36 @@ import { Button } from 'reactstrap';
 const divStyle = {
 	display: "flex",
 	flexDirection: 'column',
-	justifyContent:"center",
-	alignItems: 'center',
+	justifyContent:"space-around",
 	padding: "1%",
 	textAlign: "center",
 	fontFamily: 'menlo'
 }
 
+const title ={
+	fontWeight:'bold',
+	marginBottom:'2%'
+}
+
 const buttonStyle = {
-	flexDirection:'row'
+	flexDirection:'row',
+	marginTop:'1%',
+	marginBottom:'3%'
+}
+
+const buttonOne = {
+	margin:'3%'
 }
 
 export default class Header extends React.Component {
 	render(){
 	  return(
 		<div style={divStyle}> 
-			<h2>The New York Times Article Scrubber</h2>
+			<h2 style={title}>The New York Times Archives</h2>
 			<h4>Search. Discover. Save </h4>
 			<div style={buttonStyle}>
 				<Link to={`/search`}>
-				    <Button color="secondary" size="lg">Show Search</Button>
+				    <Button color="secondary" style={buttonOne} size="lg">Show Search</Button>
 				</Link>
 				<Link to={`/saved`}>
 				    <Button color="secondary" size="lg">Show Saved</Button>

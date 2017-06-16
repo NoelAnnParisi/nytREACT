@@ -9,7 +9,9 @@ import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
 const bodyStyle = {
-    padding: "2%"
+    paddingLeft: "7%",
+    paddingRight:"7%",
+    paddingTop:'4%'
 }
 export default class Main extends React.Component {
   constructor(props){

@@ -1,10 +1,14 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText, Table} from 'reactstrap';
 
+const formStyle = {
+  fontFamily: 'menlo'
+}
+
 export default class Search extends React.Component {
   render() {
     return (
-      <Form onSubmit={this.props.onSearch}>
+      <Form style={formStyle} onSubmit={this.props.onSearch}>
         <FormGroup>
           <Label for="topic">Topic</Label>
           <Input 

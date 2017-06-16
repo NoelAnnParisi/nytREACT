@@ -1,16 +1,16 @@
 import React from 'react';
 import { Button, Table } from 'reactstrap';
 
+const resultsStyle = {
+    fontFamily: 'menlo',
+    border:'none',
+    marginTop:'5%'
+}
+
 export default class Results extends React.Component {
   render() {
     return (
-      <Table hover>
-        <thead>
-          <tr>
-            <th>Article</th>
-            <th>Save article?</th>
-          </tr>
-        </thead>
+      <Table style={resultsStyle} hover>
         <tbody>
           {this.props.articles.map((article) => {
             return (
