@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Search from './Search';
 import Results from './Results';
+import Article from './Article';
 import SavedArticles from './SavedArticles';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
@@ -29,6 +30,7 @@ export default class Main extends React.Component {
     this.deleteArticle = this.deleteArticle.bind(this);
   }
 
+  // before the parent mounts fetch the sved articles and set state
   componentWillMount(){
     axios({
         method:'get',
@@ -39,23 +41,28 @@ export default class Main extends React.Component {
         })
     })
   }
-
+  // handlechange on topic input
   handleTopic(e){
     this.setState({
         q: e.target.value
     })
   }
+
+  // handlechange on start year input
   handleStartYear(e){
     this.setState({
         begin_date: e.target.value
     })
   }
+
+  // handlechange on end year input
   handleEndYear(e){
     this.setState({
         end_date: e.target.value
     })
   }
-  
+
+  // when the form is submitted make a get request to NYT API
   getData(e){ 
     e.preventDefault();
     let formValues = {
@@ -64,33 +71,36 @@ export default class Main extends React.Component {
         end_date: this.state.end_date
     }
     let params = Object.assign(formValues, {'api-key': "8d32a9732f3f4185838455317f461bd3"}) 
+    // make user experience better by adding month and date to years
     params.begin_date = `${params.begin_date}0101`; 
     params.end_date = `${params.end_date}1231`; 
     axios({ 
-        method:'get', 
-        baseURL: `https://api.nytimes.com/svc/search/v2/articlesearch.json?`, 
-        params: params, 
-        responseType: 'json'})
+      method:'get', 
+      baseURL: `https://api.nytimes.com/svc/search/v2/articlesearch.json?`, 
+      params: params, 
+      responseType: 'json'})
     .then(data => { 
+        // make an arr to hold data so .map can be used to render the data
         const dataToBeRendered = [];
         const dataArr = data.data.response.docs;
         dataArr.forEach(article => {
-            dataToBeRendered.push({
-                web_url: article.web_url,
-                snippet: article.snippet,
-                pub_date: article.pub_date
-            });
+          dataToBeRendered.push({
+            web_url: article.web_url,
+            snippet: article.snippet,
+            pub_date: article.pub_date
+          });
         });
+        // then setState and clean out form input state
         this.setState({
-            articles: dataToBeRendered,
-            q:" ",
-            begin_date: " ",
-            end_date: " "
+          articles: dataToBeRendered,
+          q:" ",
+          begin_date: " ",
+          end_date: " "
         });
+      }); 
+    }
 
-    }); 
-  }
-
+  // when save button is clicked post the article to my db
   saveArticle(article){
     axios({
       method:'post',
@@ -99,6 +109,7 @@ export default class Main extends React.Component {
           data: article
       }
     }).then(response => {
+      // update state with each saved article
       let newState = [];
       newState.push(response.data);
       this.setState({
@@ -106,11 +117,14 @@ export default class Main extends React.Component {
       })
     })
   }
+
+  // pass the id associated with the article and tell mongo to delete it 
   deleteArticle(id) {
     axios({
       method:'get',
       baseURL: `/api/delete/${id}`,
     }).then(response => {
+      // update state accordingly
       this.setState({
         savedData: this.state.savedData.filter(article => {
           return article._id !== response.data._id
@@ -118,29 +132,22 @@ export default class Main extends React.Component {
       })
     })
   }
+
   update(data){
-      return data.map(article => {
-        return (
-          <tr 
-          key={article._id}>
-            <td>
-              <a target="_blank" 
-                href={article.web_url}>
-                {article.snippet}
-              </a>
-            </td>
-            <td>
-              <Button 
-                ref={article._id}
-                color="danger"
-                onClick={() => {
-                  this.deleteArticle(article._id)}}>
-                Delete
-              </Button>
-            </td>
-          </tr>
-        )
-      })
+    return (
+      <tbody>
+        {
+          data.map((article, i) => {
+            return (
+              <Article key={i}
+                article={article}
+                deleteArticle={this.deleteArticle}
+              />
+            )
+          })
+        }
+      </tbody>
+    )
   }
 
   render() {
@@ -195,6 +202,3 @@ export default class Main extends React.Component {
     )
   }
 }
-
-//import Error404 from './Error404';
-//<Route path='*' component={Error404} />

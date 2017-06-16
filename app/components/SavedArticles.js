@@ -12,9 +12,7 @@ export default class SavedArticles extends React.Component {
 		        <th>Delete?</th>
 		      </tr>
 		    </thead>
-		    <tbody>
 				{this.props.update(this.props.savedData)}
-		    </tbody>
 		  </Table>
 		)
 	}
