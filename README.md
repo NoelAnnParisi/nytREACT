@@ -15,4 +15,7 @@ Using MERN I've designed an app that allows you to search for archived New York 
 1. Add authentication
 2. Tweak UI
 
-![Alt text](/readMe.png?raw=true)
+
+<p align="center">
+  <img src="/readMe.png?raw=true" alt="ScreenShot of my site"/>
+</p>
