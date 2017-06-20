@@ -13,6 +13,7 @@ export default class Results extends React.Component {
       <Table style={resultsStyle} hover>
         <tbody>
           {this.props.articles.map((article) => {
+            console.log(`${JSON.stringify(article, null,2)}`);
             return (
               <tr key={article.pub_date}>
                 <td>

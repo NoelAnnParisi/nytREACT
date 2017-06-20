@@ -63,7 +63,6 @@ export default class Main extends React.Component {
         end_date: e.target.value
     })
   }
-
   // when the form is submitted make a get request to NYT API
   getData(e){ 
     e.preventDefault();

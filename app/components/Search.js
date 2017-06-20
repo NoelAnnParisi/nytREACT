@@ -12,7 +12,8 @@ export default class Search extends React.Component {
         <FormGroup>
           <Label for="topic">Topic</Label>
           <Input 
-            type="text" 
+            type="text"
+            required={true} 
             onChange={this.props.topicChanged} 
             value={this.props.q} 
             placeholder="Topic" />
@@ -20,7 +21,10 @@ export default class Search extends React.Component {
         <FormGroup>
           <Label for="startYear">Start Year</Label>
           <Input 
-            type="text" 
+            type="number"
+            min={1860}
+            max={2017}
+            required={true}
             onChange={this.props.startYearChanged} 
             value={this.props.begin} 
             placeholder="2011"/>
@@ -28,7 +32,10 @@ export default class Search extends React.Component {
         <FormGroup>
           <Label for="endYear">End year</Label>
           <Input 
-            type="text" 
+            type="number"
+            min={1861}
+            max={2017}
+            required={true} 
             onChange={this.props.endYearChanged} 
             value={this.props.end} 
             placeholder="2015" />
